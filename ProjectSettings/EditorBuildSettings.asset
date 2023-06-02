@@ -11,10 +11,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/Virtual Keyboard.unity
     guid: fe1e11ef9906acf4985da79d850c7c23
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Aspec.unity
     guid: 8b0f9d7bd4624154691d1c704d92742b
   - enabled: 0
     path: Assets/_Scenes/Main Scene 1.unity
     guid: c28364d1bda582342b953f2f6f570b85
+  - enabled: 1
+    path: Assets/_Scenes/Aspec_30_Anos.unity
+    guid: 7c27d11a89516764c88f288f6501027d
   m_configObjects: {}

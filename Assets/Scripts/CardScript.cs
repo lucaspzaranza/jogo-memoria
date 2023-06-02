@@ -46,29 +46,37 @@ public class CardScript : MonoBehaviour
             timeFlipping += Time.deltaTime;
         }
 
-        if (timeFlipping >= 0.5f)
+        //if (timeFlipping >= 0.5f)
+        if (numCall > 0 && (GetCurrentCardState() == CardStates.Back && transform.eulerAngles.y < 90f ||
+            GetCurrentCardState() == CardStates.Flipped && transform.eulerAngles.y > 180f))
         {
+            print($"STOP! {transform.eulerAngles.y}");
             isFlipping = false;
             timeFlipping = 0;
             numCall = 0;           
         }
-        else if (timeFlipping >= 0.2875f && timeFlipping < 0.35f && isFlipping && numCall == 0)
+        //else if (timeFlipping >= 0.2875f && timeFlipping < 0.35f && isFlipping && numCall == 0)
+        else if (isFlipping && numCall == 0)
         {
-            numCall++;
-            if (GetCurrentCardState() == CardStates.Back)
-            {                
+            if (GetCurrentCardState() == CardStates.Back && transform.eulerAngles.y > 100f)
+            {
+                numCall++;
+                //print($"flippedTexture: {transform.eulerAngles.y}");
                 GetComponent<Renderer>().material.mainTexture = flippedTexture;                
 
                 currentCardState = CardStates.Flipped;
                 
                 tag = "flipped card";
             }
-            else
+            else 
+            if(transform.eulerAngles.y > 270f && transform.eulerAngles.y < 290f)
             {
+                //print($"backTexture: {transform.eulerAngles.y}");
                 GetComponent<Renderer>().material.mainTexture = backTexture;
 
                 currentCardState = CardStates.Back;
-                tag = "card";                
+                tag = "card";
+                numCall++;
             }
         }
     }

@@ -25,6 +25,8 @@ public class GameController : MonoBehaviour
     #region variables
 
     #region Global Variables
+    [SerializeField] private int _numOfCards;
+
     public GameObject [] cards;
     public GameObject background;
     public VirtualKeyboard virtualKeyboard;
@@ -77,7 +79,7 @@ public class GameController : MonoBehaviour
     private bool endGameCalled;
 
     private bool isCountDown;
-    private int countDown = 5;
+    //private int countDown = 5;
 
     public int numberOftries;
 
@@ -515,14 +517,15 @@ public class GameController : MonoBehaviour
 
     private void SetCardTextures()
     {
-        int numCards = NumberOfCards();
-        int randomNumber = UnityEngine.Random.Range(0, numCards);        
+        //int numCards = NumberOfCards();
+        int randomNumber = UnityEngine.Random.Range(0, _numOfCards);        
         
         for (int i = 0; i < cards.Length; i++)
         {
             while (ExistPair(randomNumber))
             {
-                randomNumber = UnityEngine.Random.Range(0, NumberOfCards());                
+                //randomNumber = UnityEngine.Random.Range(0, NumberOfCards());
+                randomNumber = UnityEngine.Random.Range(0, _numOfCards);
             }
 
             cardScript[i].cardNumber = randomNumber;
@@ -718,11 +721,11 @@ public class GameController : MonoBehaviour
         ShuffleCards();
     }      
 
-    public void ToggleVirtualKeyboard(bool value)
+    public void ToggleVirtualKeyboard(bool value) 
     {
-        print(Application.platform);
-        if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
-            virtualKeyboard.ToggleVirtualKeyboard(value);
+        //print(Application.platform);
+        //if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
+        //    virtualKeyboard.ToggleVirtualKeyboard(value);
     }
 
     private void SetCardsParent()
@@ -748,8 +751,8 @@ public class GameController : MonoBehaviour
         switch (difficulty)
         {
             default:
-                timeToEndMatch = 60f;
-                //timeToEndMatch = 3f;
+                //timeToEndMatch = 60f;
+                timeToEndMatch = 90f;
                 break;
             case 1:
                 timeToEndMatch = 75f;
@@ -822,15 +825,25 @@ public class GameController : MonoBehaviour
         EndGameUI.SetActive(true);
         if (totalNumCardsFlipped == cardTextures.Length * 2 || forceWin)
         {
-            smileFace.SetActive(true);
-            defaultEndingTitle.SetActive(false);
-            bestEndingTitle.SetActive(true);
+            if(smileFace != null)
+                smileFace.SetActive(true);
+
+            if(defaultEndingTitle != null)
+                defaultEndingTitle.SetActive(false);
+
+            if(bestEndingTitle != null)
+                bestEndingTitle.SetActive(true);
         }
         else
         {
-            smileFace.SetActive(false);
-            defaultEndingTitle.SetActive(true);
-            bestEndingTitle.SetActive(false);
+            if(smileFace != null)
+                smileFace.SetActive(false);
+
+            if (defaultEndingTitle != null)
+                defaultEndingTitle.SetActive(true);
+
+            if (bestEndingTitle != null)
+                bestEndingTitle.SetActive(false);
         }
     }
 
